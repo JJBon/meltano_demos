@@ -1,0 +1,73 @@
+version: 1
+default_environment: dev
+project_id: f3327264-3580-43ea-ac27-415c54588837
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-github
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-github.git
+    config:
+      repositories:
+      - sbalnojan/meltano-lightdash
+      start_date: '2022-01-01'
+    select:
+    - commits.url
+    - commits.sha
+    - commits.commit_timestamp
+    - commits.*
+  - name: tap-salesforce
+    variant: meltanolabs
+    pip_url: git+https://github.com/meltanolabs/tap-salesforce.git@v1.5.1
+    config:
+      username: jjbon@jjdemocompany.sandbox
+      start_date: '2023-12-01T01:00:00Z'
+    select:
+    - Account.*
+    - User.*
+    - Customer.*
+    - Contact.*
+  - name: tap-athena
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-athena.git
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      user: meltano
+      database: postgres
+      add_record_metadata: true
+      host: host.docker.internal
+  - name: target-athena
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-athena.git
+    config:
+      athena_database: demo-database
+      aws_region: us-east-1
+      s3_bucket: jj-datalake-v1
+      s3_key_prefix: meltano
+      s3_staging_dir: s3://jj-datalake-v1/meltano/staging
+  - name: target-s3-parquet
+    variant: gupy-io
+    pip_url: git+https://github.com/gupy-io/target-s3-parquet.git
+    config:
+      athena_database: demo-database
+      add_record_metadata: true
+      s3_path: s3://jj-datalake-v1/meltano
+  utilities:
+  - name: dbt-postgres
+    variant: dbt-labs
+    pip_url: dbt-core~=1.5.2 dbt-postgres~=1.5.2 git+https://github.com/meltano/dbt-ext.git@main
+    config:
+      host: host.docker.internal
+      port: 5432
+      user: meltano
+      dbname: postgres
+      schema: analytics
