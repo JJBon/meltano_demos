@@ -16,4 +16,4 @@ fi
 # Navigate to the Meltano project directory and start Meltano
 cd "$REPO_DIR"/quickstartv2/demo-project
 # Add commands to start Meltano or other necessary services
-meltano run tap-
+meltano run tap-athena target-s3-parquet
