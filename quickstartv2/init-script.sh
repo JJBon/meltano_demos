@@ -17,5 +17,5 @@ fi
 cd "$REPO_DIR"/quickstartv2/demo-project
 # Add commands to start Meltano or other necessary services
 meltano add loader target-s3-parquet
-meltano add extractor tap-athena
-meltano run tap-athena target-s3-parquet --full-refresh
+meltano add extractor tap-salesforce
+meltano run tap-salesforce target-s3-parquet --full-refresh

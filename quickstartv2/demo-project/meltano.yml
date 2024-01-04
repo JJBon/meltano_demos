@@ -3,9 +3,6 @@ default_environment: dev
 project_id: 2e0477c0-d972-4065-bb62-ab4cae9fa4bc
 environments:
 - name: dev
-  env:
-    TAP_ATHENA_AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-    TAP_ATHENA_AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 - name: staging
 - name: prod
 plugins:
@@ -13,7 +10,6 @@ plugins:
   - name: tap-athena
     variant: meltanolabs
     pip_url: git+https://github.com/MeltanoLabs/tap-athena.git
-
     config:
       database: yelp
       aws_region: us-east-1
@@ -21,6 +17,17 @@ plugins:
       schema_name: yelp
     select:
     - yelp-checkin.*
+  - name: tap-salesforce
+    variant: meltanolabs
+    pip_url: git+https://github.com/meltanolabs/tap-salesforce.git@v1.5.1
+    config:
+      username: jjbon@jjdemocompany.sandbox
+      start_date: '2023-12-01T01:00:00Z'
+    select:
+    - Account.*
+    - User.*
+    - Customer.*
+    - Contact.*
   loaders:
   - name: target-postgres
     variant: meltanolabs
