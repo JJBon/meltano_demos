@@ -3,6 +3,9 @@ default_environment: dev
 project_id: 2e0477c0-d972-4065-bb62-ab4cae9fa4bc
 environments:
 - name: dev
+  env:
+    TAP_ATHENA_AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+    TAP_ATHENA_AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
 - name: staging
 - name: prod
 plugins:
@@ -10,6 +13,7 @@ plugins:
   - name: tap-athena
     variant: meltanolabs
     pip_url: git+https://github.com/MeltanoLabs/tap-athena.git
+
     config:
       database: yelp
       aws_region: us-east-1
