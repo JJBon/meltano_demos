@@ -53,5 +53,6 @@ plugins:
       add_record_metadata: true
       athena_database: demo-database
       s3_path: s3://jj-datalake-v1/meltano/yelpv3
+      aws_region: us-east-1
 state_backend:
   uri: s3://jj-datalake-v1/meltano-states
