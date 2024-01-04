@@ -1,0 +1,46 @@
+version: 1
+default_environment: dev
+project_id: 2e0477c0-d972-4065-bb62-ab4cae9fa4bc
+environments:
+- name: dev
+- name: staging
+- name: prod
+plugins:
+  extractors:
+  - name: tap-athena
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-athena.git
+    config:
+      database: yelp
+      aws_region: us-east-1
+      s3_staging_dir: s3://jj-datalake-v1/meltano/salesforcev2
+      schema_name: yelp
+    select:
+    - yelp-checkin.*
+  loaders:
+  - name: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      user: meltano
+      database: postgres
+      add_record_metadata: true
+      host: host.docker.internal
+  - name: target-athena
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-athena.git
+    config:
+      athena_database: materialized
+      s3_key_prefix: yelp
+      s3_staging_dir: s3://jj-datalake-v1/meltano/yelpv2
+      s3_bucket: jj-datalake-v1
+      aws_region: us-east-1
+  - name: target-s3-parquet
+    variant: gupy-io
+    pip_url: git+https://github.com/gupy-io/target-s3-parquet.git
+    config:
+      add_record_metadata: true
+      athena_database: demo-database
+      s3_path: s3://jj-datalake-v1/meltano/yelpv3
+state_backend:
+  uri: s3://jj-datalake-v1/meltano-states
