@@ -50,10 +50,9 @@ plugins:
     variant: gupy-io
     pip_url: git+https://github.com/gupy-io/target-s3-parquet.git
     config:
-      add_record_metadata: true
       athena_database: demo-database
-      s3_path: s3://jj-datalake-v1/meltano/yelpv3
-      aws_region: us-east-1
+      add_record_metadata: true
+      s3_path: s3://jj-datalake-v1/meltano
   - name: target-s3
     variant: crowemi
     pip_url: git+https://github.com/crowemi/target-s3.git
