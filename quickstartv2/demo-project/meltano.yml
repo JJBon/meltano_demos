@@ -58,7 +58,8 @@ plugins:
     variant: crowemi
     pip_url: git+https://github.com/crowemi/target-s3.git
     config:
-      cloud_provider.aws.aws_bucket: s3://jj-datalake-v1/meltano/salesforce
+      cloud_provider.aws.aws_bucket: jj-datalake-v1
+      prefix: salesforcev2
       append_date_to_filename: true 
       include_process_date: true
       format:
