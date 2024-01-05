@@ -65,6 +65,10 @@ plugins:
         format_type: parquet
         format_parquet:
           validate: true 
+      cloud_provider: 
+        aws: 
+          aws_region:us-east-1
+
 
 state_backend:
   uri: s3://jj-datalake-v1/meltano-states
