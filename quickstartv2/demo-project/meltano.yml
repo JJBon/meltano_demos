@@ -54,5 +54,17 @@ plugins:
       athena_database: demo-database
       s3_path: s3://jj-datalake-v1/meltano/yelpv3
       aws_region: us-east-1
+  - name: target-s3
+    variant: crowemi
+    pip_url: git+https://github.com/crowemi/target-s3.git
+    config:
+      cloud_provider.aws.aws_bucket: s3://jj-datalake-v1/meltano/salesforce
+      append_date_to_filename: true 
+      include_process_date: true
+      format:
+        format_type: parquet
+        format_parquet:
+          validate: true 
+
 state_backend:
   uri: s3://jj-datalake-v1/meltano-states

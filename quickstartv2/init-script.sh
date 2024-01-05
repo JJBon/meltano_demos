@@ -16,6 +16,6 @@ fi
 # Navigate to the Meltano project directory and start Meltano
 cd "$REPO_DIR"/quickstartv2/demo-project
 # Add commands to start Meltano or other necessary services
-meltano add loader target-s3-parquet
+meltano add loader target-s3
 meltano add extractor tap-salesforce--new --inherit-from tap-salesforce
-meltano run tap-salesforce target-s3-parquet --full-refresh
+meltano run tap-salesforce target-s3 --full-refresh
