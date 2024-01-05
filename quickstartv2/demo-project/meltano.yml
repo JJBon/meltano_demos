@@ -62,9 +62,7 @@ plugins:
       append_date_to_filename: true 
       include_process_date: true
       format:
-        format_type: parquet
-        format_parquet:
-          validate: true 
+        format_type: json
       cloud_provider: 
         aws: 
           aws_region: us-east-1
