@@ -28,6 +28,9 @@ plugins:
     - User.*
     - Customer.*
     - Contact.*
+    - Opportunity.*
+    - Quote.*
+    - Campaign.*
   loaders:
   - name: target-postgres
     variant: meltanolabs
@@ -50,7 +53,7 @@ plugins:
     variant: gupy-io
     pip_url: git+https://github.com/gupy-io/target-s3-parquet.git
     config:
-      athena_database: demo-database
+      athena_database: salesforce
       add_record_metadata: true
       s3_path: s3://jj-datalake-v1/meltano
   - name: target-s3
